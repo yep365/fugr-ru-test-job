@@ -3,7 +3,7 @@ import classnames from "classnames";
 
 import "./Cell.scss";
 
-const Cell = ({ cellText, selected, width }) => {
+const Cell = ({ cellText, selected, width, index }) => {
   return (
     <div
       className={classnames("cell", {

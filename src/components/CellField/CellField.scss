@@ -1,7 +1,23 @@
 .cell {
   &-field {
-    background-color: red;
+    background-color: rgb(244, 249, 255);
     overflow: auto;
-    height: 500px;
+    height: 600px;
+    border: 3px solid grey;
+    &--loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &--err {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(231, 212, 212);
+      h1 {
+        font-size: 25px;
+        color: #ffffff;
+      }
+    }
   }
 }
