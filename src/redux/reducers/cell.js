@@ -4,6 +4,7 @@ const initialState = {
   selectedColumn: null,
   isLoading: true,
   errLoading: false,
+  rows: [],
   fitlteredRows: [],
   paginatedRows: [],
   currentPage: 1,
@@ -30,6 +31,11 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
+        rows: payload,
+      };
+    case "CELL:SET_FILTERED_ITEMS":
+      return {
+        ...state,
         fitlteredRows: payload,
       };
     case "CELL:SET_PAGINATED_ITEMS":

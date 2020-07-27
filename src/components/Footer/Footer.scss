@@ -8,4 +8,15 @@
     display: flex;
     justify-content: center;
   }
+  &-output {
+    margin-top: 30px;
+    &__item {
+      margin-top: 10px;
+      font-size: 18px;
+      font-family: sans-serif;
+      textarea {
+        min-height: 20px;
+      }
+    }
+  }
 }

@@ -1,10 +1,11 @@
 import React from "react";
 
-import { CellField, Footer } from "./components";
+import { CellField, Header, Footer } from "./components";
 
 function App() {
   return (
     <div className="wrapper">
+      <Header />
       <CellField />
       <Footer />
     </div>

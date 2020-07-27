@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Pagination } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { cellActions } from "../../redux/actions";
 
@@ -8,6 +8,11 @@ import "./Footer.scss";
 
 const Footer = () => {
   const dispatch = useDispatch();
+  const { selectedRow, paginatedRows, fitlteredRows } = useSelector(
+    ({ cell }) => cell
+  );
+
+  let selectedClient = paginatedRows[selectedRow];
 
   const onShowSizeChange = (current, pageSize) => {
     dispatch(cellActions.setPageSize(pageSize));
@@ -27,11 +32,40 @@ const Footer = () => {
           onChange={onPageChange}
           showSizeChanger
           onShowSizeChange={onShowSizeChange}
-          total={1000}
+          total={fitlteredRows.length}
           defaultPageSize={50}
           pageSizeOptions={[10, 20, 50]}
         />
       </div>
+      {selectedClient && (
+        <div className="footer-output">
+          <div className="footer-output__item">
+            Выбран пользователь
+            <b>
+              {selectedClient
+                ? ` ${selectedClient?.firstName} ${selectedClient?.lastName}`
+                : " Пусто"}
+            </b>
+          </div>
+          <div className="footer-output__item">
+            Описание:
+            <textarea value={selectedClient?.description ?? " Пусто"} />
+          </div>
+          <div className="footer-output__item">
+            Адрес проживания:
+            <b> {selectedClient?.address.streetAddress ?? " Пусто"}</b>
+          </div>
+          <div className="footer-output__item">
+            Город: <b> {selectedClient?.address.city ?? " Пусто"}</b>
+          </div>
+          <div className="footer-output__item">
+            Провинция/штат: <b> {selectedClient?.address.state ?? " Пусто"}</b>
+          </div>
+          <div className="footer-output__item">
+            Индекс: <b> {selectedClient?.address.zip ?? " Пусто"}</b>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -20,13 +20,14 @@ const CellField = () => {
 
   return (
     <div className="cell-field">
-      {paginatedRows?.map((obj, index) => (
-        <CellRow key={obj.email} obj={obj} rowIndex={index} />
-      ))}
-      {isLoading && (
+      {isLoading ? (
         <div className="cell-field cell-field--loading">
           <Spin size="large" tip="Загрузка..." />
         </div>
+      ) : (
+        paginatedRows?.map((obj, index) => (
+          <CellRow key={obj.email} obj={obj} rowIndex={index} />
+        ))
       )}
       {errLoading && (
         <div className="cell-field cell-field--err">
