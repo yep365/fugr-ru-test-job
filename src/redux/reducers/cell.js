@@ -1,7 +1,7 @@
 const initialState = {
-  selectedSortColumn: undefined,
-  selectedRow: undefined,
-  selectedColumn: undefined,
+  selectedSortColumn: null,
+  selectedRow: null,
+  selectedColumn: null,
   isLoading: false,
   fitlteredRows: [],
 };

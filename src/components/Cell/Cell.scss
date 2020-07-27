@@ -1,24 +1,58 @@
 .cell {
   display: flex;
-  margin: 10px;
+  margin: 0px;
   padding: 2px;
-  text-align: center;
+
   justify-content: flex-start;
   align-items: center;
   background-color: #ffffff;
-  width: 120px;
+
   height: 39px;
-  max-width: 120px;
+  cursor: pointer;
+  font-size: 15px;
+  border: 1px solid #b3d8fb;
+  text-align: right;
+
   p {
+    text-align: center;
     height: 20px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
-  border: 1px solid #b3d8fb;
-  &--selected {
-    border: 1px solid #1890ff;
-  }
 
-  font-size: 15px;
+  &--selected {
+    border: 1.5px solid #1890ff;
+  }
+  &--id {
+    width: 60px;
+    justify-content: center;
+  }
+  &--firstName {
+    width: 110px;
+  }
+  &--lastName {
+    width: 110px;
+  }
+  &--email {
+    width: 190px;
+  }
+  &--phone {
+    width: 120px;
+  }
+  &--streetAddress {
+    width: 160px;
+  }
+  &--city {
+    width: 150px;
+  }
+  &--state {
+    width: 50px;
+  }
+  &--zip {
+    width: 50px;
+  }
+  &--description {
+    width: 580px;
+  }
 }

@@ -1,0 +1,10 @@
+.cell-row {
+  margin-top: 2px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  :hover {
+    background-color: #98ccfd;
+    transition: all 0.7s;
+  }
+}
