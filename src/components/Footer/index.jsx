@@ -15,8 +15,10 @@ const Footer = () => {
     currentPage,
     isLoading,
   } = useSelector(({ cell }) => cell);
-
-  let selectedClient = paginatedRows[selectedRow];
+  let selectedClient;
+  if (paginatedRows) {
+    selectedClient = paginatedRows[selectedRow];
+  }
 
   const onShowSizeChange = (current, pageSize) => {
     dispatch(cellActions.setPageSize(pageSize));

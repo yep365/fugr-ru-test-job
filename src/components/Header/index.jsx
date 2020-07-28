@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Modal, Input, Checkbox } from "antd";
 import { useDispatch } from "react-redux";
 
@@ -13,7 +13,6 @@ const Header = () => {
   const [clientFilter, setClientFilter] = useState("");
   const dispatch = useDispatch();
 
-  console.log(exactSearh);
   const onFetchSmall = () => {
     dispatch(cellActions.fetchClientsSmall());
     onCancelSearch();

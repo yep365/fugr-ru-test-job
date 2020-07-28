@@ -28,6 +28,7 @@ const Actions = {
     payload: rows,
   }),
   setFilteredRows: (rows) => (dispatch) => {
+    // dispatch({ type: "CELL:SET_FILTERED_ITEMS", payload: null });
     dispatch({ type: "CELL:SET_FILTERED_ITEMS", payload: rows });
     dispatch(Actions.setPaginatedRows());
   },
@@ -55,7 +56,8 @@ const Actions = {
     const { pageSize, currentPage, fitlteredRows } = cell;
     let paginatedList = pagination(fitlteredRows, currentPage, pageSize);
 
-    dispatch(Actions.selectRow(null));
+    // dispatch(Actions.selectRow(null));
+    // dispatch({ type: "CELL:SET_PAGINATED_ITEMS", payload: null });
     dispatch({ type: "CELL:SET_PAGINATED_ITEMS", payload: paginatedList });
   },
 

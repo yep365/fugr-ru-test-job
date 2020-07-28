@@ -1,17 +1,19 @@
 export default (objArray, query, exactSearch) => {
-  console.log(`Прилетело ${exactSearch}`);
   let filteredArr = [];
   objArray.forEach((obj) => {
     Object.values(obj).forEach((value) => {
       if (typeof value === "object") {
         let nestedObj = Object.values(value);
-        nestedObj.filter((item) => {
+
+        nestedObj.forEach((item) => {
           if (
             exactSearch
               ? String(item).toLowerCase() === String(query).toLowerCase()
               : String(item).toLowerCase().includes(String(query).toLowerCase())
           ) {
-            return filteredArr.push(obj);
+            if (filteredArr[filteredArr.length - 1] !== obj) {
+              filteredArr.push(obj);
+            }
           }
         });
       } else {
@@ -20,7 +22,9 @@ export default (objArray, query, exactSearch) => {
             ? String(value).toLowerCase() === String(query).toLowerCase()
             : String(value).toLowerCase().includes(String(query).toLowerCase())
         ) {
-          return filteredArr.push(obj);
+          if (filteredArr[filteredArr.length - 1] !== obj) {
+            filteredArr.push(obj);
+          }
         }
       }
     });

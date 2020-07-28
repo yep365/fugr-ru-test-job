@@ -22,7 +22,11 @@ const CellField = () => {
     <div className="cell-field">
       {!isLoading &&
         paginatedRows?.map((obj, index) => (
-          <CellRow key={obj.email} obj={obj} rowIndex={index} />
+          <CellRow
+            key={String(obj.email) + String(obj.lastName)}
+            obj={obj}
+            rowIndex={index}
+          />
         ))}
       {isLoading && (
         <div className="cell-field cell-field--loading">
