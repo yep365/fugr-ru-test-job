@@ -22,7 +22,7 @@ const CellRow = ({ obj, rowIndex }) => {
           Object.entries(entry[1]).map((nestedObjEntry) => (
             <Cell
               key={nestedObjEntry[0]}
-              cellText={nestedObjEntry[1] ?? "Пусто"}
+              cellText={String(nestedObjEntry[1]) ?? "Пусто"}
               width={nestedObjEntry[0] ?? "firstName"}
               selected={selectedRow === rowIndex}
             />
@@ -30,7 +30,7 @@ const CellRow = ({ obj, rowIndex }) => {
         ) : (
           <Cell
             key={entry[0]}
-            cellText={entry[1] ?? "Пусто"}
+            cellText={String(entry[1]) ?? "Пусто"}
             width={entry[0] ?? "firstName"}
             selected={selectedRow === rowIndex}
           />

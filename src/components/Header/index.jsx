@@ -8,7 +8,7 @@ import "./Header.scss";
 
 const Header = () => {
   const [modalSearch, setSearchModal] = useState(false);
-  const [exactSearh, setExactSearh] = useState(false);
+  const [exactSearh, setExactSearch] = useState(false);
   const [searchStatus, setSearchStatus] = useState(false);
   const [clientFilter, setClientFilter] = useState("");
   const dispatch = useDispatch();
@@ -27,12 +27,13 @@ const Header = () => {
     dispatch(cellActions.findClient(query, exactSearh));
   };
   const onCancelSearch = () => {
+    dispatch(cellActions.dropSelectedRow());
     dispatch(cellActions.cancelFilter());
   };
   const handleCancelModal = () => {
     setSearchModal(false);
-    setClientFilter("");
-    setExactSearh(false);
+
+    setExactSearch(false);
   };
   const handleSearhModalOk = () => {
     onCancelSearch();
@@ -40,19 +41,18 @@ const Header = () => {
     setSearchModal(false);
     setSearchStatus(true);
     setClientFilter("");
-    setExactSearh(false);
+    setExactSearch(false);
   };
   const handleCancelSearch = () => {
     setSearchStatus(false);
     setClientFilter("");
-    setExactSearh(false);
+    setExactSearch(false);
     onCancelSearch();
   };
   const onOpenModal = () => {
     setSearchStatus(false);
     setClientFilter("");
-    setExactSearh(false);
-    onCancelSearch();
+    setExactSearch(false);
     setSearchModal(true);
   };
   return (
@@ -61,9 +61,11 @@ const Header = () => {
         <Button size="middle">Внести клиента в базу</Button>
       </div>
       <div className="header-filter">
-        <Button size="middle" onClick={onOpenModal}>
-          Поиск клиентов
-        </Button>
+        {!searchStatus && (
+          <Button size="middle" onClick={onOpenModal}>
+            Поиск клиентов
+          </Button>
+        )}
         <Modal
           title="Найти клиента"
           visible={modalSearch}
@@ -80,14 +82,14 @@ const Header = () => {
               <h2>Точный поиск</h2>
               <Checkbox
                 checked={exactSearh}
-                onChange={(e) => setExactSearh(e.target.checked)}
+                onChange={(e) => setExactSearch(e.target.checked)}
                 type="checkbox"
               />
             </div>
           </div>
         </Modal>
         {searchStatus && (
-          <Button size="small" onClick={handleCancelSearch}>
+          <Button size="small" type="danger " onClick={handleCancelSearch}>
             Отменить поиск
           </Button>
         )}

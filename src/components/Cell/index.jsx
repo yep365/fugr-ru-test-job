@@ -1,9 +1,10 @@
 import React from "react";
 import classnames from "classnames";
+import PropTypes from "prop-types";
 
 import "./Cell.scss";
 
-const Cell = ({ cellText, selected, width, index }) => {
+const Cell = ({ cellText, selected, width, clickHandler }) => {
   return (
     <div
       className={classnames("cell", {
@@ -19,10 +20,16 @@ const Cell = ({ cellText, selected, width, index }) => {
         "cell--zip": width === "zip",
         "cell--description": width === "description",
       })}
+      onClick={clickHandler}
     >
       <p>{cellText}</p>
     </div>
   );
+};
+Cell.propTypes = {
+  cellText: PropTypes.string,
+  width: PropTypes.string,
+  selected: PropTypes.bool,
 };
 
 export default Cell;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Pagination } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -28,6 +28,7 @@ const Footer = () => {
   const onPageChange = (page) => {
     dispatch(cellActions.setCurrentPage(page));
     dispatch(cellActions.setPaginatedRows());
+    dispatch(cellActions.dropSelectedRow());
   };
 
   return (
@@ -56,7 +57,10 @@ const Footer = () => {
           </div>
           <div className="footer-output__item">
             Описание:
-            <textarea value={selectedClient?.description ?? " Пусто"} />
+            <textarea
+              value={selectedClient?.description ?? " Пусто"}
+              readOnly
+            />
           </div>
           <div className="footer-output__item">
             Адрес проживания:

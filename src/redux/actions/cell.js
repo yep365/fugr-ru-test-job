@@ -1,5 +1,5 @@
 import { clientInfoApi } from "../../utils/api";
-import { pagination, filterClientData } from "../../utils/helpers";
+import { pagination, filterClientData, sortBy } from "../../utils/helpers";
 
 const Actions = {
   setLoading: (status) => ({
@@ -18,10 +18,69 @@ const Actions = {
     type: "CELL:SET_PAGE_SIZE",
     payload: size,
   }),
-  selectRow: (index) => ({
+  dropSelectedRow: () => ({
     type: "CELL:SET_ROW",
-    payload: index,
+    payload: null,
   }),
+  sortByField: (sortField, biggestOnTop) => (dispatch, getState) => {
+    const { cell } = getState();
+    const { fitlteredRows } = cell;
+    let sortPropperty;
+    switch (sortField) {
+      case "id":
+        sortPropperty = (object) => object.id;
+        break;
+      case "firstName":
+        sortPropperty = (object) => object.firstName;
+        break;
+      case "lastName":
+        sortPropperty = (object) => object.lastName;
+        break;
+      case "email":
+        sortPropperty = (object) => object.email;
+        break;
+      case "phone":
+        sortPropperty = (object) => object.phone;
+        break;
+      case "description":
+        sortPropperty = (object) => object.id;
+        break;
+      case "streetAddress":
+        sortPropperty = (object) => object.address.streetAddress;
+        break;
+      case "city":
+        sortPropperty = (object) => object.address.city;
+        break;
+      case "state":
+        sortPropperty = (object) => object.address.state;
+        break;
+      case "zip":
+        sortPropperty = (object) => object.address.zip;
+        break;
+      default:
+        sortPropperty = (object) => object.id;
+    }
+    const filterItems = () => {
+      dispatch(
+        Actions.setFilteredRows(
+          fitlteredRows.sort(sortBy(sortPropperty, biggestOnTop))
+        )
+      );
+    };
+    filterItems();
+  },
+  selectRow: (index) => (dispatch, getState) => {
+    const { cell } = getState();
+    const { selectedRow } = cell;
+    if (selectedRow !== index) {
+      dispatch({
+        type: "CELL:SET_ROW",
+        payload: index,
+      });
+    } else {
+      dispatch(Actions.dropSelectedRow());
+    }
+  },
 
   setRows: (rows) => ({
     type: "CELL:SET_ITEMS",

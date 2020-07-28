@@ -1,0 +1,14 @@
+.cell {
+  &-header {
+    &__item {
+      position: relative;
+
+      img {
+        position: absolute;
+        top: 37%;
+        right: 0.5rem;
+        width: 0.8rem;
+      }
+    }
+  }
+}

@@ -1,4 +1,9 @@
 .cell {
+  &-header {
+    display: flex;
+    flex-direction: row;
+    margin-left: 3px;
+  }
   &-field {
     background-color: rgb(244, 249, 255);
     overflow: auto;
