@@ -11,4 +11,27 @@
     align-items: center;
     height: 90px;
   }
+  &-filter {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    &__exact {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      * {
+        margin-right: 10px;
+      }
+    }
+    &__search {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      input {
+        margin-right: 30px;
+      }
+    }
+  }
 }

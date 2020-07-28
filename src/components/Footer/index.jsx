@@ -8,9 +8,13 @@ import "./Footer.scss";
 
 const Footer = () => {
   const dispatch = useDispatch();
-  const { selectedRow, paginatedRows, fitlteredRows } = useSelector(
-    ({ cell }) => cell
-  );
+  const {
+    selectedRow,
+    paginatedRows,
+    fitlteredRows,
+    currentPage,
+    isLoading,
+  } = useSelector(({ cell }) => cell);
 
   let selectedClient = paginatedRows[selectedRow];
 
@@ -29,15 +33,16 @@ const Footer = () => {
       <div className="footer-pagination">
         <Pagination
           defaultCurrent={1}
+          current={currentPage ?? 1}
           onChange={onPageChange}
           showSizeChanger
           onShowSizeChange={onShowSizeChange}
-          total={fitlteredRows.length}
+          total={fitlteredRows.length ?? 1}
           defaultPageSize={50}
           pageSizeOptions={[10, 20, 50]}
         />
       </div>
-      {selectedClient && (
+      {!isLoading && selectedClient && (
         <div className="footer-output">
           <div className="footer-output__item">
             Выбран пользователь
