@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { CellField, Header, Footer } from "./components";
+import { CellField, Footer } from "./components";
+import { Header } from "./containers";
 
 function App() {
   const { selectedRow } = useSelector(({ cell }) => cell);

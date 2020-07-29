@@ -1,81 +1,20 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { Button, Modal, Alert } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { cellActions } from "../../redux/actions";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 
 import "./InsertClientForm.scss";
 
-const InsertClientForm = () => {
-  const dispatch = useDispatch();
-  const formRef = useRef(null);
-  const { errUpLoading } = useSelector(({ cell }) => cell);
-  const [insertCleintModal, setInsertCleintModal] = useState(false);
-  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-  const USstateRegExp = /^((A[LKSZR])|(C[AOT])|(D[EC])|(F[ML])|(G[AU])|(HI)|(I[DLNA])|(K[SY])|(LA)|(M[EHDAINSOT])|(N[EVHJMYCD])|(MP)|(O[HKR])|(P[WAR])|(RI)|(S[CD])|(T[NX])|(UT)|(V[TIA])|(W[AVIY]))$/;
-  const USzipRegExp = /^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z] \d[A-Z]\d$/;
-  const fitstCapital = /^[A-Z][a-z0-9_-]{3,19}$/;
-
-  const validationSchema = Yup.object({
-    id: Yup.number("Только числа").required("Обязательно"),
-    firstName: Yup.string()
-      .matches(fitstCapital, "Должно начинаться с Заглавной буквы")
-      .required("Обязательно"),
-    lastName: Yup.string()
-      .matches(fitstCapital, "Должно начинаться с Заглавной буквы")
-      .required("Обязательно"),
-    email: Yup.string().email("Email указан неверно").required("Обязательно"),
-    phone: Yup.string()
-      .matches(phoneRegExp, "Номер телфона указан неверно!")
-      .required("Обязательно"),
-    address: Yup.object({
-      streetAddress: Yup.string()
-        .matches(fitstCapital, "Должно начинаться с Заглавной буквы")
-        .required("Обязательно"),
-      city: Yup.string()
-        .matches(fitstCapital, "Должно начинаться с Заглавной буквы")
-        .required("Обязательно"),
-      state: Yup.string()
-        .matches(USstateRegExp, "Штат указан неверно!")
-        .required("Обязательно"),
-      zip: Yup.string()
-        .matches(USzipRegExp, "ZIP-код США указан неверно!")
-        .required("Обязательно"),
-    }),
-    description: Yup.string().required("Обязательно"),
-  });
-  const initialValues = {
-    id: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: {
-      streetAddress: "",
-      city: "",
-      state: "",
-      zip: "",
-    },
-    description: "",
-  };
-  const handleSubmit = () => {
-    if (formRef.current) {
-      formRef.current.handleSubmit();
-    }
-  };
-  const onCancelInsertCleintModal = () => {
-    setInsertCleintModal(false);
-  };
-  const onSubmit = (values) => {
-    dispatch(cellActions.setNewUserUpload(values));
-    setInsertCleintModal(false);
-  };
-  const onOpenInsertClientModal = () => {
-    setInsertCleintModal(true);
-    dispatch(cellActions.setUpLoadingErr(false));
-  };
-
+const InsertClientForm = ({
+  errUpLoading,
+  onOpenInsertClientModal,
+  insertCleintModal,
+  handleSubmit,
+  onCancelInsertCleintModal,
+  initialValues,
+  validationSchema,
+  onSubmit,
+  formRef,
+}) => {
   return (
     <>
       {errUpLoading && (

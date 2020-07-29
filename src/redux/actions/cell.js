@@ -10,8 +10,10 @@ const Actions = {
     const { cell } = getState();
     const { rows } = cell;
     let dbType;
+
     Array(rows).length < 999 ? (dbType = "big") : (dbType = "small");
 
+    dispatch({ type: "CELL:SET_NEW_USER", payload: object });
     clientInfoApi
       .uploadNewClient(object, dbType)
       .then(({ status }) => {

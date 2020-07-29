@@ -11,7 +11,7 @@ const initialState = {
   paginatedRows: [],
   currentPage: 1,
   pageSize: 50,
-  newUser: {},
+  newUser: undefined,
 };
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -23,7 +23,7 @@ export default (state = initialState, { type, payload }) => {
     case "CELL:SET_NEW_USER":
       return {
         ...state,
-        rows: [payload, ...state.rows],
+        newUser: payload,
       };
     case "CELL:SET_ROW":
       return {
