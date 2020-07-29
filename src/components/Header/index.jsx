@@ -3,6 +3,7 @@ import { Button, Modal, Input, Checkbox } from "antd";
 import { useDispatch } from "react-redux";
 
 import { cellActions } from "../../redux/actions";
+import { InsertClientForm } from "../../components";
 
 import "./Header.scss";
 
@@ -11,6 +12,7 @@ const Header = () => {
   const [exactSearh, setExactSearch] = useState(false);
   const [searchStatus, setSearchStatus] = useState(false);
   const [clientFilter, setClientFilter] = useState("");
+
   const dispatch = useDispatch();
 
   const onFetchSmall = () => {
@@ -49,20 +51,21 @@ const Header = () => {
     setExactSearch(false);
     onCancelSearch();
   };
-  const onOpenModal = () => {
+  const onOpenSearchModal = () => {
     setSearchStatus(false);
     setClientFilter("");
     setExactSearch(false);
     setSearchModal(true);
   };
+
   return (
     <div className="header">
       <div className="header-create-client">
-        <Button size="middle">Внести клиента в базу</Button>
+        <InsertClientForm />
       </div>
       <div className="header-filter">
         {!searchStatus && (
-          <Button size="middle" onClick={onOpenModal}>
+          <Button size="middle" onClick={onOpenSearchModal}>
             Поиск клиентов
           </Button>
         )}

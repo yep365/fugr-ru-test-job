@@ -20,7 +20,11 @@ const CellFieldHeader = () => {
   return (
     <div className="cell-row">
       {headerItems.map((headerField) => (
-        <CellFieldHeaderItem type={headerField.type} name={headerField.name} />
+        <CellFieldHeaderItem
+          key={headerField.type}
+          type={headerField.type}
+          name={headerField.name}
+        />
       ))}
     </div>
   );

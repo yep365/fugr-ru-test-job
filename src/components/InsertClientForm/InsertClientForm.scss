@@ -1,0 +1,16 @@
+.header {
+  &-form {
+    &__input {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 15px;
+      input[type="text"] {
+        border-color: #f5f6f3;
+        margin-left: 7px;
+        width: 250px;
+        // flex: 1;
+      }
+    }
+  }
+}

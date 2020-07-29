@@ -17,8 +17,9 @@ const CellFieldHeaderItem = ({ type, name }) => {
     setFilterPosition(!filterPosition);
     setSelected(!selected);
   };
-  const rot = {
+  const animation = {
     transform: `rotate(${filterPosition ? `0` : `180`}deg)`,
+    transition: "all 0.5s ease-in-out",
   };
   return (
     <div className="cell-header__item">
@@ -28,7 +29,7 @@ const CellFieldHeaderItem = ({ type, name }) => {
         cellText={name}
         width={type}
       />
-      <img src={triangle} alt={triangle} style={rot} />
+      <img src={triangle} alt={triangle} style={animation} />
     </div>
   );
 };

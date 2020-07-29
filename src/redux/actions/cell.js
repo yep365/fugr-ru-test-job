@@ -6,9 +6,30 @@ const Actions = {
     type: "CELL:SET_LOADING",
     payload: status,
   }),
+  setNewUserUpload: (object) => (dispatch, getState) => {
+    const { cell } = getState();
+    const { rows } = cell;
+    let dbType;
+    Array(rows).length < 999 ? (dbType = "big") : (dbType = "small");
+
+    clientInfoApi
+      .uploadNewClient(object, dbType)
+      .then(({ status }) => {
+        if (status >= 200 && status < 300) {
+          dispatch(Actions.setMainRows(Array(object).concat(rows)));
+        }
+      })
+      .catch(() => {
+        dispatch(Actions.setUpLoadingErr(true));
+      });
+  },
   setLoadingErr: () => ({
     type: "CELL:LOADING_ERR",
     payload: true,
+  }),
+  setUpLoadingErr: (status) => ({
+    type: "CELL:UPLOADING_ERR",
+    payload: status,
   }),
   setCurrentPage: (page) => ({
     type: "CELL:SET_CURRENT_PAGE",
@@ -87,7 +108,6 @@ const Actions = {
     payload: rows,
   }),
   setFilteredRows: (rows) => (dispatch) => {
-    // dispatch({ type: "CELL:SET_FILTERED_ITEMS", payload: null });
     dispatch({ type: "CELL:SET_FILTERED_ITEMS", payload: rows });
     dispatch(Actions.setPaginatedRows());
   },
@@ -114,19 +134,18 @@ const Actions = {
     const { cell } = getState();
     const { pageSize, currentPage, fitlteredRows } = cell;
     let paginatedList = pagination(fitlteredRows, currentPage, pageSize);
-
-    // dispatch(Actions.selectRow(null));
-    // dispatch({ type: "CELL:SET_PAGINATED_ITEMS", payload: null });
     dispatch({ type: "CELL:SET_PAGINATED_ITEMS", payload: paginatedList });
   },
-
+  setMainRows: (data) => (dispatch) => {
+    dispatch(Actions.setRows(data));
+    dispatch(Actions.setInnitialFilter());
+    dispatch(Actions.setPaginatedRows());
+  },
   fetchClients: () => (dispatch) => {
     clientInfoApi
       .getAll()
       .then(({ data }) => {
-        dispatch(Actions.setRows(data));
-        dispatch(Actions.setInnitialFilter());
-        dispatch(Actions.setPaginatedRows());
+        dispatch(Actions.setMainRows(data));
       })
       .catch(() => {
         dispatch(Actions.setLoadingErr());
@@ -138,9 +157,7 @@ const Actions = {
     clientInfoApi
       .getAll()
       .then(({ data }) => {
-        dispatch(Actions.setRows(data));
-        dispatch(Actions.setInnitialFilter());
-        dispatch(Actions.setPaginatedRows());
+        dispatch(Actions.setMainRows(data));
       })
       .catch(() => {
         dispatch(Actions.setLoadingErr());
@@ -152,9 +169,7 @@ const Actions = {
     clientInfoApi
       .getAllsmall()
       .then(({ data }) => {
-        dispatch(Actions.setRows(data));
-        dispatch(Actions.setInnitialFilter());
-        dispatch(Actions.setPaginatedRows());
+        dispatch(Actions.setMainRows(data));
       })
       .catch(() => {
         dispatch(Actions.setLoadingErr());

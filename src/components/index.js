@@ -5,3 +5,4 @@ export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";
 export { default as CellFieldHeader } from "./CellFieldHeader";
 export { default as CellFieldHeaderItem } from "./CellFieldHeaderItem";
+export { default as InsertClientForm } from "./InsertClientForm";

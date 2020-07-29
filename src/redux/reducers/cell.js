@@ -1,14 +1,17 @@
+import { produce, draftState } from "immer";
 const initialState = {
   selectedSortColumn: null,
   selectedRow: null,
   selectedColumn: null,
   isLoading: true,
   errLoading: false,
+  errUpLoading: false,
   rows: [],
   fitlteredRows: [],
   paginatedRows: [],
   currentPage: 1,
   pageSize: 50,
+  newUser: {},
 };
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -16,6 +19,11 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: payload,
+      };
+    case "CELL:SET_NEW_USER":
+      return {
+        ...state,
+        rows: [payload, ...state.rows],
       };
     case "CELL:SET_ROW":
       return {
@@ -48,6 +56,12 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         errLoading: payload,
+      };
+    case "CELL:UPLOADING_ERR":
+      return {
+        ...state,
+        isLoading: false,
+        errUpLoading: payload,
       };
     case "CELL:SET_CURRENT_PAGE":
       return {
