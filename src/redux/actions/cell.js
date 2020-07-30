@@ -6,29 +6,12 @@ const Actions = {
     type: "CELL:SET_LOADING",
     payload: status,
   }),
-  setNewUserUpload: (object) => (dispatch, getState) => {
-    const { cell } = getState();
-    const { rows } = cell;
-    let dbType;
 
-    Array(rows).length < 999 ? (dbType = "big") : (dbType = "small");
-
-    dispatch({ type: "CELL:SET_NEW_USER", payload: object });
-    clientInfoApi
-      .uploadNewClient(object, dbType)
-      .then(({ status }) => {
-        if (status >= 200 && status < 300) {
-          dispatch(Actions.setMainRows(Array(object).concat(rows)));
-        }
-      })
-      .catch(() => {
-        dispatch(Actions.setUpLoadingErr(true));
-      });
-  },
   setLoadingErr: () => ({
     type: "CELL:LOADING_ERR",
     payload: true,
   }),
+
   setUpLoadingErr: (status) => ({
     type: "CELL:UPLOADING_ERR",
     payload: status,
@@ -45,6 +28,16 @@ const Actions = {
     type: "CELL:SET_ROW",
     payload: null,
   }),
+  setValidation: (allow) => (dispatch, getState) => {
+    const { cell } = getState();
+    const { validation } = cell;
+    if (validation !== allow) {
+      dispatch({
+        type: "CELL:SET_VALIDATION",
+        payload: allow,
+      });
+    }
+  },
   sortByField: (sortField, biggestOnTop) => (dispatch, getState) => {
     const { cell } = getState();
     const { fitlteredRows } = cell;
@@ -175,6 +168,25 @@ const Actions = {
       })
       .catch(() => {
         dispatch(Actions.setLoadingErr());
+      });
+  },
+  setNewUserUpload: (object) => (dispatch, getState) => {
+    const { cell } = getState();
+    const { rows } = cell;
+    let dbType;
+
+    Array(rows).length < 999 ? (dbType = "big") : (dbType = "small");
+
+    dispatch({ type: "CELL:SET_NEW_USER", payload: object });
+    clientInfoApi
+      .uploadNewClient(object, dbType)
+      .then(({ status }) => {
+        if (status >= 200 && status < 300) {
+          dispatch(Actions.setMainRows(Array(object).concat(rows)));
+        }
+      })
+      .catch(() => {
+        dispatch(Actions.setUpLoadingErr(true));
       });
   },
 };

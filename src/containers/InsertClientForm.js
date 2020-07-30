@@ -6,10 +6,11 @@ import * as Yup from "yup";
 import { InsertClientForm as InsertClientFormBase } from "../components";
 
 const InsertClientForm = () => {
+  const [insertCleintModal, setInsertCleintModal] = useState(false);
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const { errUpLoading } = useSelector(({ cell }) => cell);
-  const [insertCleintModal, setInsertCleintModal] = useState(false);
+  const { errUpLoading, validation } = useSelector(({ cell }) => cell);
+
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const USstateRegExp = /^((A[LKSZR])|(C[AOT])|(D[EC])|(F[ML])|(G[AU])|(HI)|(I[DLNA])|(K[SY])|(LA)|(M[EHDAINSOT])|(N[EVHJMYCD])|(MP)|(O[HKR])|(P[WAR])|(RI)|(S[CD])|(T[NX])|(UT)|(V[TIA])|(W[AVIY]))$/;
   const USzipRegExp = /^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z] \d[A-Z]\d$/;
@@ -64,13 +65,16 @@ const InsertClientForm = () => {
   };
   const onCancelInsertCleintModal = () => {
     setInsertCleintModal(false);
+    // dispatch(cellActions.setValidation(false));
   };
   const onSubmit = (values, { resetForm }) => {
     dispatch(cellActions.setNewUserUpload(values));
     setInsertCleintModal(false);
     resetForm({});
+    // dispatch(cellActions.setValidation(false));
   };
   const onOpenInsertClientModal = () => {
+    // dispatch(cellActions.setValidation(false));
     setInsertCleintModal(true);
     dispatch(cellActions.setUpLoadingErr(false));
   };
@@ -86,6 +90,7 @@ const InsertClientForm = () => {
         insertCleintModal={insertCleintModal}
         onOpenInsertClientModal={onOpenInsertClientModal}
         errUpLoading={errUpLoading}
+        validation={validation}
       />
     </>
   );

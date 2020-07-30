@@ -1,4 +1,3 @@
-import { produce, draftState } from "immer";
 const initialState = {
   selectedSortColumn: null,
   selectedRow: null,
@@ -12,6 +11,7 @@ const initialState = {
   currentPage: 1,
   pageSize: 50,
   newUser: undefined,
+  validation: false,
 };
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -34,6 +34,11 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         selectedColumn: payload,
+      };
+    case "CELL:SET_VALIDATION":
+      return {
+        ...state,
+        validation: payload,
       };
     case "CELL:SET_ITEMS":
       return {
