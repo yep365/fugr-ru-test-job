@@ -3,13 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { cellActions } from "../../../redux/actions";
 
-const PropsReceiver = ({
-  isValid,
-  dirty,
-  validateForm,
-  isValidating,
-  errors,
-}) => {
+const PropsReceiver = ({ isValid, dirty, validateForm, errors }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (isValid === true && dirty === true && Object.keys(errors) < 1) {
@@ -22,6 +16,7 @@ const PropsReceiver = ({
   useEffect(() => {
     (() => validateForm())();
   }, []);
+
   return null;
 };
 

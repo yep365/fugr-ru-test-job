@@ -45,25 +45,14 @@ const InsertClientForm = ({
             onSubmit={onSubmit}
             innerRef={formRef}
           >
-            {({
-              values,
-              isValid,
-              dirty,
-              errors,
-              touched,
-              validateForm,
-              isValidating,
-            }) => (
+            {({ isValid, dirty, errors, validateForm }) => (
               <Form>
                 <div className="header-form__input">
                   <PropsReceiver
                     isValid={isValid}
                     dirty={dirty}
                     errors={errors}
-                    touched={touched}
-                    values={values}
                     validateForm={validateForm}
-                    isValidating={isValidating}
                   />
                   <label htmlFor="id">Id</label>
                   <Field
